@@ -1,10 +1,9 @@
 package com.example.producer.controller;
 
 import com.example.model.Event;
-import com.example.producer.service.ProducerService;
+import com.example.producer.service.EventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +14,9 @@ import java.util.UUID;
 @RestController
 @Setter
 @RequiredArgsConstructor
-class ProducerController {
+class EventProducerController {
 
-    private final ProducerService producerService;
-
-    @Value("${events.topic}")
-    String eventsTopic;
+    private final EventProducer eventProducer;
 
     @GetMapping("/test-random-event")
     @ResponseBody
@@ -29,7 +25,7 @@ class ProducerController {
                 .uuid(UUID.randomUUID().toString())
                 .created(LocalDateTime.now())
                 .build();
-        producerService.send(eventsTopic, null, event);
+        eventProducer.send(null, event);
         return event;
     }
 }
