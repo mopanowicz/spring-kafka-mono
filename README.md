@@ -1,7 +1,9 @@
 # spring-kafka-mono
 
-## links
+## Links
 
-https://kafka.apache.org/documentation/#topicconfigs
-https://kafka.apache.org/documentation/#producerconfigs
-https://kafka.apache.org/documentation/#consumerconfigs
+[Topic configs](https://kafka.apache.org/documentation/#topicconfigs)
+
+[Producer configs](https://kafka.apache.org/documentation/#producerconfigs)
+
+[Consumer configs](https://kafka.apache.org/documentation/#consumerconfigs)
