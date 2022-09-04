@@ -1,14 +1,16 @@
 server.port: 8082
 
+events:
+  topic: events
+  confirmation-topic: event_confirmations
+
 kafka:
   producer:
     blocking: true
     properties:
       bootstrap.servers: kafka.virtual.box:9092
-      client.id: producer
-#      transactional.id: ${HOSTNAME:localhost}
-      acks: 1
+      client.id: event-producer
+#      transactional.id: ${HOSTNAME:COMPUTERNAME:localhost}
+#      acks: 1
       key.serializer: org.apache.kafka.common.serialization.StringSerializer
       value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-  events-topic: events

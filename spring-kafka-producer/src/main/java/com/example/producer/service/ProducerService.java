@@ -1,4 +1,4 @@
-package com.example.producer.service.service;
+package com.example.producer.service;
 
 import com.example.model.Event;
 import lombok.RequiredArgsConstructor;

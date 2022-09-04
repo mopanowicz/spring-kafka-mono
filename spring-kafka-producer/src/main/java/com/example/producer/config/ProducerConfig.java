@@ -20,7 +20,6 @@ class ProducerConfig {
 
     Map<String, String> properties;
 
-    @Bean
     ProducerFactory<String, Event> producerFactory() {
         return new DefaultKafkaProducerFactory<>(properties.entrySet()
                 .stream()
