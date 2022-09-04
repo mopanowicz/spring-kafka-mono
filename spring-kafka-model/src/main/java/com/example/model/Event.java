@@ -4,10 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @Setter
 public class Event {
     String uuid;
-    long timestamp;
+    LocalDateTime created;
+    LocalDateTime sent;
+    Object cargo;
 }

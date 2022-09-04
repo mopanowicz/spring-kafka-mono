@@ -1,0 +1,8 @@
+server.port: 8084
+
+kafka:
+  producer:
+    bootstrap-servers: kafka.virtual.box:9092
+    transaction-id-prefix: "${HOSTNAME:localhost}"
+    properties:
+      client-id: producer
