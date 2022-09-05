@@ -35,7 +35,7 @@ class EventProducerConfig {
                 .stream()
                 .filter(e -> StringUtils.hasText(e.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
-        configs.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "tx-");
+        configs.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "event-tx-");
         return new DefaultKafkaProducerFactory<>(configs);
     }
 
