@@ -37,21 +37,3 @@ public class EventConfirmationConsumer {
         eventDeliveryMonitor.eventConfirmationReceived(eventConfirmation);
     }
 }
-
-@Configuration
-@Setter
-@ConfigurationProperties(prefix = "event-confirmation-consumer")
-class EventConfirmationConsumerConfig {
-
-    Map<String, String> properties;
-
-    @Bean
-    ConcurrentKafkaListenerContainerFactory<String, EventConfirmation> eventConfirmationListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, EventConfirmation> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(properties.entrySet()
-                .stream()
-                .filter(e -> StringUtils.hasText(e.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())))));
-        return factory;
-    }
-}

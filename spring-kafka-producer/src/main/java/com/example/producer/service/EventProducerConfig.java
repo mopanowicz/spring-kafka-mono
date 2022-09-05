@@ -24,9 +24,6 @@ class EventProducerConfig {
 
     Map<String, String> properties;
 
-    boolean transactional;
-    boolean allowNonTransactional;
-
     @Bean
     KafkaTransactionManager kafkaTransactionManager(ProducerFactory<String, Event> producerFactoryTransactional) {
         return new KafkaTransactionManager<>(producerFactoryTransactional);
