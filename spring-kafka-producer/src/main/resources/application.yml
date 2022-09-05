@@ -8,7 +8,8 @@ management:
 logging:
   level:
     root: INFO
-    com.example: DEBUG
+    com.example: INFO
+    com.example.producer.service.EventDeliveryMonitor: DEBUG
 
 event-producer:
   topic: events
@@ -16,8 +17,6 @@ event-producer:
   properties:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-producer
-#    transactional.id: ${HOSTNAME:COMPUTERNAME:localhost}
-#    acks: 1
     key.serializer: org.apache.kafka.common.serialization.StringSerializer
     value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
