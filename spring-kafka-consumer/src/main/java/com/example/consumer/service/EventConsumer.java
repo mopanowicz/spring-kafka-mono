@@ -43,21 +43,3 @@ public class EventConsumer {
         }
     }
 }
-
-@Configuration
-@Setter
-@ConfigurationProperties(prefix = "event-consumer")
-class EventConsumerConfig {
-
-    Map<String, String> properties;
-
-    @Bean
-    ConcurrentKafkaListenerContainerFactory<String, Event> eventListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Event> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(properties.entrySet()
-                .stream()
-                .filter(e -> StringUtils.hasText(e.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())))));
-        return factory;
-    }
-}

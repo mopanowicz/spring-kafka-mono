@@ -24,6 +24,9 @@ event-consumer:
     spring.json.value.default.type: com.example.model.Event
     spring.json.trusted.packages: com.example.model
 
+#  spring.kafka.consumer.enable-auto-commit=false
+#  spring.kafka.consumer.isolation-level=read_committed
+
 event-confirmation-producer:
   topic: event_confirmations
   blocking: true
