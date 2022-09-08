@@ -13,6 +13,7 @@ logging:
 event-consumer:
   topic: events
   send-confirmation: true
+  count-events: true
   properties:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-consumer

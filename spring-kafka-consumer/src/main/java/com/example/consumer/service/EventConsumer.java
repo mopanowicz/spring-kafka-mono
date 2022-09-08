@@ -19,9 +19,13 @@ import java.time.LocalDateTime;
 public class EventConsumer {
 
     private final EventConfirmationProducer eventConfirmationProducer;
+    private final EventCounterService eventCounterService;
 
     @Value("${event-consumer.send-confirmation:false}")
     boolean sendConfirmation;
+
+    @Value("${event-consumer.count-events:false}")
+    boolean countEvents;
 
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
     void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key, @Payload Event event) {
@@ -31,6 +35,9 @@ public class EventConsumer {
             eventConfirmationProducer.send(key, EventConfirmation.builder()
                     .originalEvent(event)
                     .build());
+        }
+        if (countEvents) {
+            eventCounterService.countEvent(event);
         }
     }
 }
