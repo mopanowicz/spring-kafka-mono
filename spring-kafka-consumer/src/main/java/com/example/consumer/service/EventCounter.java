@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class EventCounter {
+
     long firstEvent;
     long lastEvent;
     int numberOfEvents;
@@ -25,6 +26,7 @@ public class EventCounter {
         }
         return eps;
     }
+
     public void reset() {
         firstEvent = 0;
         lastEvent = 0;
