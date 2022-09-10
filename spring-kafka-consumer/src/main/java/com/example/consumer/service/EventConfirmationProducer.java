@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.concurrent.ListenableFuture;
 
-import java.time.LocalDateTime;
-
 @Service
 @Setter
 @Slf4j
@@ -30,7 +28,6 @@ public class EventConfirmationProducer {
     @Transactional
     public void send(String key, EventConfirmation eventConfirmation) {
         log.debug("send key={} event={}", key, eventConfirmation);
-        eventConfirmation.setConfirmationSent(LocalDateTime.now());
         ListenableFuture future = kafkaTemplateTransactional.send(topic, key, eventConfirmation);
         if (blocking) {
             future.get();

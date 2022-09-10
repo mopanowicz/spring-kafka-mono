@@ -1,10 +1,6 @@
 # spring-kafka-producer
 
-## Links
-
-http://localhost:8082/test-random-event
-
-### Noteworthy producer configs
+## Noteworthy producer configs
 
 [acks](https://kafka.apache.org/documentation/#producerconfigs_acks)
 

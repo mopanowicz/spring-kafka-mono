@@ -1,4 +1,4 @@
-server.port: 8084
+server.port: 8086
 
 management:
   endpoints:
@@ -10,13 +10,17 @@ logging:
     root: INFO
     com.example: DEBUG
 
+spring:
+  data:
+    mongodb:
+      host: mongo.virtual.box
+      database: test
+
 event-consumer:
   topic: events
-  send-confirmation: true
   properties:
     bootstrap.servers: kafka.virtual.box:9092
-    client.id: event-consumer
-    group.id: event-consumer-group
+    group.id: event-monitor-group
     key.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
@@ -26,11 +30,16 @@ event-consumer:
     enable.auto.commit: false
     isolation.level: read_committed
 
-event-confirmation-producer:
+event-confirmation-consumer:
   topic: event_confirmations
-  blocking: true
   properties:
     bootstrap.servers: kafka.virtual.box:9092
-    client.id: event-confirmation-producer
-    key.serializer: org.apache.kafka.common.serialization.StringSerializer
-    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    group.id: event-confirmation-monitor-group
+    key.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+    value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+    spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+    spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    spring.json.value.default.type: com.example.model.EventConfirmation
+    spring.json.trusted.packages: com.example.model
+    enable.auto.commit: false
+    isolation.level: read_committed

@@ -3,7 +3,6 @@ package com.example.producer.controller;
 import com.example.model.Event;
 import com.example.producer.service.EventProducer;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RestController
@@ -24,41 +22,34 @@ import java.util.UUID;
 class EventProducerController {
 
     private final EventProducer eventProducer;
-    private final ObjectMapper objectMapper;
 
     @Value("${event-producer-controller.uuidAsKey:false}")
     boolean uuidAsKey;
 
     @GetMapping("/produce-random-event")
     @ResponseBody
-    Event produceRandomEvent(
+    EventProducerResult produceRandomEvent(
+            @RequestParam(name = "numberOfEvents", defaultValue = "1", required = false) int numberOfEvents,
             @RequestParam(name = "cargoSize", defaultValue = "16", required = false) int cargoSize,
             @RequestParam(name = "cargoSLength", defaultValue = "32", required = false) int cargoSLength
     ) throws JsonProcessingException {
-        Event event = randomEvent(cargoSize, cargoSLength);
-
-        String key = null;
-        if (uuidAsKey) {
-            key = event.getUuid();
+        for (int i = 0; i < numberOfEvents; i++) {
+            Event event = randomEvent(cargoSize, cargoSLength);
+            String key = null;
+            if (uuidAsKey) {
+                key = event.getUuid();
+            }
+            eventProducer.send(key, event);
         }
-
-        eventProducer.send(key, event);
-
-        String stringEvent = objectMapper.writeValueAsString(event);
-
-        log.info("produceRandomEvent length={}", stringEvent.length());
-
-        return event;
+        return new EventProducerResult(numberOfEvents, cargoSize, cargoSLength);
     }
 
     Event randomEvent(int cargoSize, int cargoSLength) {
         Event.Cargo[] cargo = new Event.Cargo[cargoSize];
 
-        Event event = Event.builder()
-                .uuid(UUID.randomUUID().toString())
-                .created(LocalDateTime.now())
-                .cargo(cargo)
-                .build();
+        Event event = new Event();
+        event.setUuid(UUID.randomUUID().toString());
+        event.setCargo(cargo);
 
         for (int i = 0; i < cargoSize; i++) {
             cargo[i] = new Event.Cargo();

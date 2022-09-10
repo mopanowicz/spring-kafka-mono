@@ -1,25 +1,20 @@
 package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Event extends EventMetadata {
-
+public class Event {
+    String uuid;
+    LocalDateTime sent;
     Cargo[] cargo;
-    LocalDateTime received;
-
-    @Builder
-    public Event(String uuid, LocalDateTime created, LocalDateTime sent, Cargo[] cargo, LocalDateTime received) {
-        super(uuid, created, sent, received);
-        this.cargo = cargo;
-    }
 
     @Data
     public static class Cargo {

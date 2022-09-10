@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class EventProducer {
 
-    private final EventDeliveryMonitor eventDeliveryMonitor;
     private final KafkaTemplate<String, Event> kafkaTemplateTransactional;
 
     @Value("${event-producer.topic}")
@@ -39,7 +38,7 @@ public class EventProducer {
 
             @Override
             public void onSuccess(final SendResult<String, Event> result) {
-                eventDeliveryMonitor.eventSent(result.getProducerRecord().value());
+                log.debug("onSuccess result={}", result);
             }
 
             @Override

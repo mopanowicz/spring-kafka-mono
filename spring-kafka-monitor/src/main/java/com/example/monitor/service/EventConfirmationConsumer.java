@@ -1,6 +1,8 @@
-package com.example.producer.service;
+package com.example.monitor.service;
 
 import com.example.model.EventConfirmation;
+import com.example.monitor.document.EventConfirmationDocument;
+import com.example.monitor.repository.EventConfirmationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -10,21 +12,18 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class EventConfirmationConsumer {
 
-    private final EventDeliveryMonitor eventDeliveryMonitor;
+    private final EventConfirmationRepository eventConfirmationRepository;
 
-    @KafkaListener(topics = "${event-confirmation-consumer.topic}", containerFactory = "eventConfirmationListenerContainerFactory")
     @Transactional
+    @KafkaListener(topics = "${event-confirmation-consumer.topic}", containerFactory = "eventConfirmationListenerContainerFactory")
     void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key,
                  @Payload EventConfirmation eventConfirmation) {
         log.debug("receive key={} eventConfirmation={}", key, eventConfirmation);
-        eventConfirmation.setConfirmationReceived(LocalDateTime.now());
-        eventDeliveryMonitor.eventConfirmationReceived(eventConfirmation);
+        eventConfirmationRepository.save(new EventConfirmationDocument(eventConfirmation));
     }
 }

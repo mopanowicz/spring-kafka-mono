@@ -12,6 +12,7 @@
         <module>spring-kafka-model</module>
         <module>spring-kafka-producer</module>
         <module>spring-kafka-consumer</module>
+        <module>spring-kafka-monitor</module>
     </modules>
 
 </project>

@@ -1,4 +1,4 @@
-package com.example.producer.service;
+package com.example.monitor.service;
 
 import com.example.model.EventConfirmation;
 import lombok.Setter;
