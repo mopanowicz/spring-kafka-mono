@@ -12,12 +12,19 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Event extends EventMetadata {
 
-    Object cargo;
+    Cargo[] cargo;
     LocalDateTime received;
 
     @Builder
-    public Event(String uuid, LocalDateTime created, LocalDateTime sent, Object cargo, LocalDateTime received) {
+    public Event(String uuid, LocalDateTime created, LocalDateTime sent, Cargo[] cargo, LocalDateTime received) {
         super(uuid, created, sent, received);
         this.cargo = cargo;
+    }
+
+    @Data
+    public static class Cargo {
+        double d;
+        int i;
+        String s;
     }
 }
