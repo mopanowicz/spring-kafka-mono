@@ -5,7 +5,6 @@ import com.example.monitor.document.EventConfirmationDocument;
 import com.example.monitor.repository.EventConfirmationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -19,9 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventConfirmationConsumer {
 
     private final EventConfirmationRepository eventConfirmationRepository;
-    private final EventMonitor eventMonitor;
 
-    private final MongoTemplate mongoTemplate;
+    private final CounterService counterService;
 
     @Transactional
     @KafkaListener(topics = "${event-confirmation-consumer.topic}", containerFactory = "eventConfirmationListenerContainerFactory")
@@ -30,6 +28,6 @@ public class EventConfirmationConsumer {
         log.debug("receive key={} eventConfirmation={}", key, eventConfirmation);
         EventConfirmationDocument eventConfirmationDocument = new EventConfirmationDocument(eventConfirmation);
         eventConfirmationRepository.save(eventConfirmationDocument);
-        eventMonitor.processEventConfirmation(eventConfirmationDocument);
+        counterService.countEventConfirmation();
     }
 }

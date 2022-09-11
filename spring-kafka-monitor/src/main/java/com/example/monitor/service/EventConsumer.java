@@ -19,13 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventConsumer {
 
     private final EventRepository eventRepository;
-    private final EventMonitor eventMonitor;
+
+    private final CounterService counterService;
 
     @Value("${event-consumer.send-confirmation:false}")
     boolean sendConfirmation;
-
-    @Value("${event-consumer.count-events:false}")
-    boolean countEvents;
 
     @Transactional
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
@@ -33,6 +31,6 @@ public class EventConsumer {
         log.debug("receive key={} event={}", key, event);
         EventDocument eventDocument = new EventDocument(event);
         eventRepository.save(eventDocument);
-        eventMonitor.processEvent(eventDocument);
+        counterService.countEvent();
     }
 }
