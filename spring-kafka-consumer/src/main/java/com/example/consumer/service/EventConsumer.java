@@ -10,6 +10,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class EventConsumer {
     @Value("${event-consumer.send-confirmation:false}")
     boolean sendConfirmation;
 
+    @Transactional
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
     void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key, @Payload Event event) {
         log.debug("receive key={} event={}", key, event);

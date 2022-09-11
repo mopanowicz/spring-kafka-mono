@@ -43,17 +43,4 @@ public class EventConfirmationProducerConfig {
     public KafkaTemplate<String, EventConfirmation> kafkaTemplateTransactional(ProducerFactory<String, EventConfirmation> producerFactoryTransactional) {
         return new KafkaTemplate<>(producerFactoryTransactional);
     }
-
-    @Bean
-    ProducerFactory<String, EventConfirmation> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(properties.entrySet()
-                .stream()
-                .filter(e -> StringUtils.hasText(e.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue()))));
-    }
-
-    @Bean
-    public KafkaTemplate<String, EventConfirmation> kafkaTemplate(ProducerFactory<String, EventConfirmation> producerFactory) {
-        return new KafkaTemplate<>(producerFactory);
-    }
 }

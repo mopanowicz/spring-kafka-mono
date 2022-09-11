@@ -43,17 +43,4 @@ class EventProducerConfig {
     public KafkaTemplate<String, Event> kafkaTemplateTransactional(ProducerFactory<String, Event> producerFactoryTransactional) {
         return new KafkaTemplate<>(producerFactoryTransactional);
     }
-
-    @Bean
-    ProducerFactory<String, Event> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(properties.entrySet()
-                .stream()
-                .filter(e -> StringUtils.hasText(e.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue()))));
-    }
-
-    @Bean
-    public KafkaTemplate<String, Event> kafkaTemplate(ProducerFactory<String, Event> producerFactory) {
-        return new KafkaTemplate<>(producerFactory);
-    }
 }

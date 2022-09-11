@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventConsumer {
 
     private final EventRepository eventRepository;
+    private final EventMonitor eventMonitor;
 
     @Value("${event-consumer.send-confirmation:false}")
     boolean sendConfirmation;
@@ -30,6 +31,8 @@ public class EventConsumer {
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
     void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key, @Payload Event event) {
         log.debug("receive key={} event={}", key, event);
-        eventRepository.save(new EventDocument(event));
+        EventDocument eventDocument = new EventDocument(event);
+        eventRepository.save(eventDocument);
+        eventMonitor.processEvent(eventDocument);
     }
 }

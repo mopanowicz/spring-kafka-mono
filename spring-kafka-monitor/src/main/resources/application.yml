@@ -27,7 +27,6 @@ event-consumer:
     spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
     spring.json.value.default.type: com.example.model.Event
     spring.json.trusted.packages: com.example.model
-    enable.auto.commit: false
     isolation.level: read_committed
 
 event-confirmation-consumer:
@@ -41,5 +40,4 @@ event-confirmation-consumer:
     spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
     spring.json.value.default.type: com.example.model.EventConfirmation
     spring.json.trusted.packages: com.example.model
-    enable.auto.commit: false
     isolation.level: read_committed
