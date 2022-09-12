@@ -31,6 +31,6 @@ public class EventConsumer {
         log.debug("receive key={} event={}", key, event);
         EventDocument eventDocument = new EventDocument(event);
         eventRepository.save(eventDocument);
-        counterService.countEvent();
+        counterService.count("event");
     }
 }

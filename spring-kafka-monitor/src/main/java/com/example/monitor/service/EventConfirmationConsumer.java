@@ -28,6 +28,6 @@ public class EventConfirmationConsumer {
         log.debug("receive key={} eventConfirmation={}", key, eventConfirmation);
         EventConfirmationDocument eventConfirmationDocument = new EventConfirmationDocument(eventConfirmation);
         eventConfirmationRepository.save(eventConfirmationDocument);
-        counterService.countEventConfirmation();
+        counterService.count("eventConfirmation");
     }
 }

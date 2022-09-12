@@ -9,7 +9,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,20 +24,33 @@ public class CounterService {
 
     private final CounterRepository counterRepository;
 
-    public long countEvent() {
-        return count("event");
+    public List<CounterDocument> getAll() {
+        return counterRepository.findAll();
     }
 
-    public long countEventConfirmation() {
-        return count("eventConfirmation");
+    @Transactional
+    public void reset(String counterId) {
+        Query query = new Query(Criteria.where("id").is(counterId));
+        Update update = new Update();
+        update.set("count", 0);
+        update.set("first", null);
+        update.set("last", null);
+        mongoTemplate.upsert(query, update, CounterDocument.class);
     }
 
-    long count(String counterId) {
+    @Transactional
+    public long count(String counterId) {
+        LocalDateTime now = LocalDateTime.now();
         Query query = new Query(Criteria.where("id").is(counterId));
         Update update = new Update();
         update.inc("count", 1);
+        update.set("last", now);
         UpdateResult result = mongoTemplate.upsert(query, update, CounterDocument.class);
-        Optional<CounterDocument> counter = counterRepository.findById(counterId);
-        return counter.get().getCount();
+        CounterDocument counter = counterRepository.findById(counterId).get();
+        if (counter.getFirst() == null) {
+            counter.setFirst(now);
+            counterRepository.save(counter);
+        }
+        return counter.getCount();
     }
 }
