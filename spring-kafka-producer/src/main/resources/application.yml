@@ -19,3 +19,12 @@ event-producer:
     client.id: event-producer
     key.serializer: org.apache.kafka.common.serialization.StringSerializer
     value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+---
+spring.config.activate.on-profile: tls
+
+server:
+  port: 8445
+  ssl.key-store: ${KEYSTORE}
+  ssl.key-store-type: PKCS12
+  ssl.key-store-password: ${KEYSTORE_PASSWORD}
