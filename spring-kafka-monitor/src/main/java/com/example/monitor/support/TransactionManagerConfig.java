@@ -1,4 +1,4 @@
-package com.example.monitor.service;
+package com.example.monitor.support;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

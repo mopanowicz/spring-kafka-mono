@@ -13,7 +13,7 @@ logging:
 spring:
   data:
     mongodb:
-      host: mongo.virtual.box
+      host: mongo-single.virtual.box
       database: test
 
 event-consumer:

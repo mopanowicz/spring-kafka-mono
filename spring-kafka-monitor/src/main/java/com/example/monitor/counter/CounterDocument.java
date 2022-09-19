@@ -1,4 +1,4 @@
-package com.example.monitor.document;
+package com.example.monitor.counter;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

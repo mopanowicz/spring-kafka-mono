@@ -1,7 +1,7 @@
-package com.example.monitor.service;
+package com.example.monitor.counter;
 
-import com.example.monitor.document.CounterDocument;
-import com.example.monitor.repository.CounterRepository;
+import com.example.monitor.counter.CounterDocument;
+import com.example.monitor.counter.CounterRepository;
 import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -11,10 +11,8 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

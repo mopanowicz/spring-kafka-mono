@@ -1,7 +1,5 @@
-package com.example.monitor.controller;
+package com.example.monitor.counter;
 
-import com.example.monitor.document.CounterDocument;
-import com.example.monitor.service.CounterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

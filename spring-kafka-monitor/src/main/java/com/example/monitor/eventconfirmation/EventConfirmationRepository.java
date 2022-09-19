@@ -1,6 +1,5 @@
-package com.example.monitor.repository;
+package com.example.monitor.eventconfirmation;
 
-import com.example.monitor.document.EventConfirmationDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

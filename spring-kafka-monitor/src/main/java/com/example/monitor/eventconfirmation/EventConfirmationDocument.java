@@ -1,4 +1,4 @@
-package com.example.monitor.document;
+package com.example.monitor.eventconfirmation;
 
 import com.example.model.EventConfirmation;
 import lombok.AllArgsConstructor;

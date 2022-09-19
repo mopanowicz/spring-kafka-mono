@@ -1,8 +1,7 @@
-package com.example.monitor.service;
+package com.example.monitor.eventconfirmation;
 
 import com.example.model.EventConfirmation;
-import com.example.monitor.document.EventConfirmationDocument;
-import com.example.monitor.repository.EventConfirmationRepository;
+import com.example.monitor.counter.CounterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
