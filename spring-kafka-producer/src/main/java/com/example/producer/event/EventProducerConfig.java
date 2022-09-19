@@ -1,4 +1,4 @@
-package com.example.producer.service;
+package com.example.producer.event;
 
 import com.example.model.Event;
 import lombok.Setter;

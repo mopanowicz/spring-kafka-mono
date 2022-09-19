@@ -1,7 +1,6 @@
-package com.example.producer.controller;
+package com.example.producer.event;
 
 import com.example.model.Event;
-import com.example.producer.service.EventProducer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

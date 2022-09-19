@@ -1,4 +1,4 @@
-package com.example.producer.controller;
+package com.example.producer.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
