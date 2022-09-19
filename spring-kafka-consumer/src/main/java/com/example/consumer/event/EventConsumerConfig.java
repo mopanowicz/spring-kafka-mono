@@ -1,4 +1,4 @@
-package com.example.consumer.service;
+package com.example.consumer.event;
 
 import com.example.model.Event;
 import lombok.Setter;
@@ -26,7 +26,7 @@ class EventConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, Event> factory = new ConcurrentKafkaListenerContainerFactory<>();
         ContainerProperties containerProperties = factory.getContainerProperties();
         containerProperties.setTransactionManager(transactionManager);
-        containerProperties.setAckMode(ContainerProperties.AckMode.RECORD);
+        containerProperties.setAckMode(ContainerProperties.AckMode.MANUAL);
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(properties.entrySet()
                 .stream()
                 .filter(e -> StringUtils.hasText(e.getValue()))

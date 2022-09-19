@@ -1,4 +1,4 @@
-package com.example.consumer.service;
+package com.example.consumer.eventconfirmation;
 
 import com.example.model.EventConfirmation;
 import lombok.Setter;
