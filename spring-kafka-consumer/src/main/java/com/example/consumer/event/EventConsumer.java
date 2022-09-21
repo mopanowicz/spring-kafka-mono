@@ -43,9 +43,9 @@ public class EventConsumer {
         if (saveEvent) {
             eventService.saveEvent(event, received);
         }
-        acknowledgment.acknowledge();
         if (sendConfirmation) {
             eventConfirmationProducer.send(key, new EventConfirmation(event.getUuid(), received));
         }
+        acknowledgment.acknowledge();
     }
 }

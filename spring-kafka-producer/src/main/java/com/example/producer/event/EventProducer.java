@@ -49,7 +49,7 @@ public class EventProducer {
     }
 
     @SneakyThrows
-    @Transactional
+    @Transactional("kafkaTransactionManager")
     public void send(String key, Event event) {
         log.debug("send key={} event={}", key, event);
         event.setSent(LocalDateTime.now());

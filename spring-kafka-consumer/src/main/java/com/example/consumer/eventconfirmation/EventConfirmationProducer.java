@@ -25,7 +25,7 @@ public class EventConfirmationProducer {
     boolean blocking;
 
     @SneakyThrows
-    @Transactional
+    @Transactional("kafkaTransactionManager")
     public void send(String key, EventConfirmation eventConfirmation) {
         log.debug("send key={} event={}", key, eventConfirmation);
         ListenableFuture future = kafkaTemplateTransactional.send(topic, key, eventConfirmation);

@@ -13,7 +13,7 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    @Transactional
+    @Transactional("transactionManager")
     void saveEvent(Event event, LocalDateTime received) {
         eventRepository.save(new EventDocument(event, received));
     }
