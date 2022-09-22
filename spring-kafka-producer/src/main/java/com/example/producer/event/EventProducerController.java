@@ -44,18 +44,16 @@ class EventProducerController {
     }
 
     Event randomEvent(int cargoSize, int cargoSLength) {
-        Event.Cargo[] cargo = new Event.Cargo[cargoSize];
-
         Event event = new Event();
         event.setUuid(UUID.randomUUID().toString());
-        event.setCargo(cargo);
-
-        for (int i = 0; i < cargoSize; i++) {
-            cargo[i] = new Event.Cargo();
-            cargo[i].setI((int)(cargoSize * Math.random()));
-            cargo[i].setD(cargoSize * Math.random());
-            cargo[i].setS(RandomStringUtils.randomAlphanumeric(cargoSLength));
-        }
+//        Event.Cargo[] cargo = new Event.Cargo[cargoSize];
+//        event.setCargo(cargo);
+//        for (int i = 0; i < cargoSize; i++) {
+//            cargo[i] = new Event.Cargo();
+//            cargo[i].setI((int)(cargoSize * Math.random()));
+//            cargo[i].setD(cargoSize * Math.random());
+//            cargo[i].setS(RandomStringUtils.randomAlphanumeric(cargoSLength));
+//        }
         return event;
     }
 }

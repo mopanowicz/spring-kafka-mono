@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,6 @@ public class EventService {
 
     @Transactional("transactionManager")
     void saveEvent(Event event, LocalDateTime received) {
-        eventRepository.save(new EventDocument(event, received));
+        eventRepository.save(new EventDocument(event, received != null ? received.toInstant(ZoneOffset.UTC).toEpochMilli() : null));
     }
 }

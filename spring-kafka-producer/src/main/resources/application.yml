@@ -18,9 +18,10 @@ event-producer:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-producer
     key.serializer: org.apache.kafka.common.serialization.StringSerializer
-    value.serializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer
+    value.serializer: io.confluent.kafka.streams.serdes.avro.ReflectionAvroSerializer
     schema.registry.url: http://confluent.virtual.box:8081
     auto.register.schemas: true
+    latest.compatibility.strict: false
     use.latest.version: true
 
 ---

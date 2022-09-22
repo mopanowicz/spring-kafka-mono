@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @Slf4j
@@ -44,7 +45,7 @@ public class EventConsumer {
             eventService.saveEvent(event, received);
         }
         if (sendConfirmation) {
-            eventConfirmationProducer.send(key, new EventConfirmation(event.getUuid(), received));
+            eventConfirmationProducer.send(key, new EventConfirmation(event.getUuid(), received.toInstant(ZoneOffset.UTC).toEpochMilli()));
         }
         acknowledgment.acknowledge();
     }
