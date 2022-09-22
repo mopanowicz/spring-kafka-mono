@@ -18,7 +18,10 @@ event-producer:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-producer
     key.serializer: org.apache.kafka.common.serialization.StringSerializer
-    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    value.serializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer
+    schema.registry.url: http://confluent.virtual.box:8081
+    auto.register.schemas: true
+    use.latest.version: true
 
 ---
 spring.config.activate.on-profile: tls
