@@ -7,13 +7,13 @@ management:
 
 logging:
   level:
-    root: INFO
-    com.example: DEBUG
+    root: info
+    com.example: info
 
 spring:
   data:
     mongodb:
-      host: mongo-single.virtual.box
+      host: mongonode.virtual.box
       database: test
 
 event-consumer:

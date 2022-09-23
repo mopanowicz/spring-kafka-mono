@@ -7,8 +7,8 @@ management:
 
 logging:
   level:
-    root: INFO
-    com.example: DEBUG
+    root: info
+    com.example: info
 
 event-producer:
   topic: events
