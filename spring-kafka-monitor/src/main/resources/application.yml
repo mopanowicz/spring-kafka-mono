@@ -25,7 +25,10 @@ event-consumer:
     value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
     spring.deserializer.value.delegate.class: io.confluent.kafka.streams.serdes.avro.ReflectionAvroDeserializer
+    specific.avro.reader: true
     isolation.level: read_committed
+    schema.registry.url: http://confluent.virtual.box:8081
+    use.latest.version: true
 
 event-confirmation-consumer:
   topic: event_confirmations
@@ -36,7 +39,10 @@ event-confirmation-consumer:
     value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
     spring.deserializer.value.delegate.class: io.confluent.kafka.streams.serdes.avro.ReflectionAvroDeserializer
+    specific.avro.reader: true
     isolation.level: read_committed
+    schema.registry.url: http://confluent.virtual.box:8081
+    use.latest.version: true
 
 ---
 spring.config.activate.on-profile: tls

@@ -36,7 +36,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.confluent</groupId>
-			<artifactId>kafka-avro-serializer</artifactId>
+			<artifactId>kafka-streams-avro-serde</artifactId>
 			<version>${confluent-platform.version}</version>
 		</dependency>
 
@@ -46,12 +46,12 @@
 			<version>0.0.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-devtools</artifactId>-->
+<!--			<scope>runtime</scope>-->
+<!--			<optional>true</optional>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
