@@ -1,0 +1,15 @@
+{
+  "namespace": "com.example.model",
+  "type": "record",
+  "name": "Event",
+  "fields": [
+    {
+      "name": "uuid",
+      "type": "string"
+    },
+    {
+      "name": "sent",
+      "type": "long"
+    }
+  ]
+}

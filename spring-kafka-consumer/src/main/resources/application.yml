@@ -26,9 +26,12 @@ event-consumer:
     group.id: event-consumer-group
     auto.offset.reset: latest
     key.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-    value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#    value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#    value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    value.deserializer: io.confluent.kafka.streams.serdes.avro.ReflectionAvroDeserializer
+    specific.avro.reader: true
     spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-    spring.deserializer.value.delegate.class: io.confluent.kafka.streams.serdes.avro.ReflectionAvroDeserializer
+#    spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
     isolation.level: read_committed
     schema.registry.url: http://confluent.virtual.box:8081
     use.latest.version: true
