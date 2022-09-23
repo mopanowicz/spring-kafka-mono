@@ -5,16 +5,15 @@ import com.example.model.Event;
 import com.example.model.EventConfirmation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @Slf4j
@@ -36,15 +35,14 @@ public class EventConsumer {
     }
 
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
-    void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key,
-                 @Payload Event event, Acknowledgment acknowledgment) {
-        log.debug("receive key={} event={}", key, event);
+    void receive(ConsumerRecord<String, Event> record, Acknowledgment acknowledgment) {
+        log.debug("receive record={}", record);
         LocalDateTime received = LocalDateTime.now();
         if (saveEvent) {
-            eventService.saveEvent(event, received);
+            eventService.saveEvent(record.value(), received);
         }
         if (sendConfirmation) {
-            eventConfirmationProducer.send(key, new EventConfirmation(event.getUuid(), received));
+            eventConfirmationProducer.send(record.key(), new EventConfirmation(record.value().getUuid(), received.toInstant(ZoneOffset.UTC).toEpochMilli()));
         }
         acknowledgment.acknowledge();
     }

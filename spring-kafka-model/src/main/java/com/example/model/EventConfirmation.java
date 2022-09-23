@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +13,5 @@ import java.time.LocalDateTime;
 public class EventConfirmation {
     @Indexed
     String eventUuid;
-    LocalDateTime eventReceived;
+    Long eventReceived;
 }

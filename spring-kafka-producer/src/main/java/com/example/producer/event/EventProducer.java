@@ -14,7 +14,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 
 @Service
 @Setter
@@ -52,7 +51,7 @@ public class EventProducer {
     @Transactional("kafkaTransactionManager")
     public void send(String key, Event event) {
         log.debug("send key={} event={}", key, event);
-        event.setSent(LocalDateTime.now());
+        event.setSent(System.currentTimeMillis());
         ListenableFuture future = kafkaTemplateTransactional.send(topic, key, event);
         future.addCallback(sendCallback);
         if (blocking) {

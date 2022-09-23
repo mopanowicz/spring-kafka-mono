@@ -1,0 +1,15 @@
+{
+  "namespace": "com.example.model",
+  "type": "record",
+  "name": "EventConfirmation",
+  "fields": [
+    {
+      "name": "eventUuid",
+      "type": "string"
+    },
+    {
+      "name": "eventReceived",
+      "type": "long"
+    }
+  ]
+}

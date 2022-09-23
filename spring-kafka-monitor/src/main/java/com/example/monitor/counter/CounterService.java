@@ -1,7 +1,5 @@
 package com.example.monitor.counter;
 
-import com.example.monitor.counter.CounterDocument;
-import com.example.monitor.counter.CounterRepository;
 import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
