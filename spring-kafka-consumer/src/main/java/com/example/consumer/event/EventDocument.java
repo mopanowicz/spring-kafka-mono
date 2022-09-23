@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
 @Document("event")
 @Data
 @NoArgsConstructor
@@ -23,7 +21,7 @@ public class EventDocument extends Event {
     Long received;
 
     public EventDocument(Event source, Long received) {
-        super(source.getUuid(), source.getSent()/*, source.getCargo()*/);
+        super(source.getUuid(), source.getSent(), source.getCargo());
         this.received = received;
     }
 }

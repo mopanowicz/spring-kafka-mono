@@ -11,3 +11,5 @@
 [Confluent Platform and Apache Kafka Compatibility](https://docs.confluent.io/platform/current/installation/versions-interoperability.html)
 
 [JSON Schema Serializer and Deserializer](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/serdes-json.html)
+
+[Schema regitstry compatibility types](https://docs.confluent.io/platform/current/schema-registry/avro.html#compatibility-types)
