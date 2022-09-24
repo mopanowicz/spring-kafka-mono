@@ -1,0 +1,10 @@
+event-consumer:
+  properties:
+    bootstrap.servers: localhost:19092
+    spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    spring.json.trusted.packages: com.example
+
+event-confirmation-producer:
+  properties:
+    bootstrap.servers: localhost:19092
+    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
