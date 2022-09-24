@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EventConfirmationConsumer {
 
-    private final EventConfirmationRepository eventConfirmationRepository;
-
+    private final EventConfirmationService eventConfirmationService;
     private final CounterService counterService;
 
     @Transactional
@@ -25,8 +24,7 @@ public class EventConfirmationConsumer {
     void receive(@Header(value = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key,
                  @Payload EventConfirmation eventConfirmation) {
         log.debug("receive key={} eventConfirmation={}", key, eventConfirmation);
-        EventConfirmationDocument eventConfirmationDocument = new EventConfirmationDocument(eventConfirmation);
-        eventConfirmationRepository.save(eventConfirmationDocument);
+        eventConfirmationService.saveEventConfirmation(eventConfirmation);
         counterService.count("eventConfirmation");
     }
 }

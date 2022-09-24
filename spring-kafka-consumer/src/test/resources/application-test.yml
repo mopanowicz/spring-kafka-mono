@@ -3,6 +3,8 @@ spring:
     mongodb:
       uri: mongodb://localhost/test
 
+spring.mongodb.embedded.version: 4.4.9
+
 event-consumer:
   properties:
     bootstrap.servers: localhost:19092

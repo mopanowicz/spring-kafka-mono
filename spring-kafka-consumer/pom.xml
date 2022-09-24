@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<confluent-platform.version>6.2.6</confluent-platform.version>
+		<flapdoodle.embed.mongo.version>3.4.9</flapdoodle.embed.mongo.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -71,6 +72,12 @@
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<version>${flapdoodle.embed.mongo.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
