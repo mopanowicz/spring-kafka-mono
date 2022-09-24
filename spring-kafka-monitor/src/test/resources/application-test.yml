@@ -1,10 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/test
+
 event-consumer:
   properties:
     bootstrap.servers: localhost:19092
     spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
     spring.json.trusted.packages: com.example
 
-event-confirmation-producer:
+event-confirmation-consumer:
   properties:
     bootstrap.servers: localhost:19092
-    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    spring.json.trusted.packages: com.example
