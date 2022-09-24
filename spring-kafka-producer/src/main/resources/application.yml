@@ -8,6 +8,7 @@ management:
 logging:
   level:
     root: info
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
     com.example: info
 
 event-producer:
