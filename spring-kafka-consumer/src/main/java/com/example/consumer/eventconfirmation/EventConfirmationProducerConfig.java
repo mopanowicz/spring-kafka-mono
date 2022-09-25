@@ -2,6 +2,7 @@ package com.example.consumer.eventconfirmation;
 
 import com.example.model.EventConfirmation;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,16 +14,24 @@ import org.springframework.kafka.transaction.KafkaTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Setter
 @Configuration
+@Setter
+@Slf4j
 @EnableTransactionManagement
 @ConfigurationProperties(prefix = "event-confirmation-producer")
 public class EventConfirmationProducerConfig {
 
     Map<String, String> properties;
+
+
+    @PostConstruct
+    void init() {
+        log.info("init properties={}", properties);
+    }
 
     @Bean
     KafkaTransactionManager kafkaTransactionManager(ProducerFactory<String, EventConfirmation> producerFactoryTransactional) {
