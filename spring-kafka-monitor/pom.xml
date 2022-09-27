@@ -15,7 +15,7 @@
 	<description>Demo Kafka monitor</description>
 	<properties>
 		<java.version>11</java.version>
-		<confluent-platform.version>6.2.6</confluent-platform.version>
+		<confluent-platform.version>7.2.1</confluent-platform.version>
 		<flapdoodle.embed.mongo.version>3.4.9</flapdoodle.embed.mongo.version>
 	</properties>
 	<dependencies>
@@ -38,6 +38,11 @@
 		<dependency>
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-streams-avro-serde</artifactId>
+			<version>${confluent-platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-streams-json-schema-serde</artifactId>
 			<version>${confluent-platform.version}</version>
 		</dependency>
 
