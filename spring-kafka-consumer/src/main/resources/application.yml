@@ -13,8 +13,8 @@ logging:
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo.virtual.box,mongo2.virtual.box,mongo3.virtual.box/test?primaryPreferred=true&&w=1&wtimeoutMS=5000
-#      uri: mongodb://mongonode.virtual.box/test
+#      uri: mongodb://mongo.virtual.box,mongo2.virtual.box,mongo3.virtual.box/test?primaryPreferred=true&&w=1&wtimeoutMS=5000
+      uri: mongodb://mongonode.virtual.box/test
 
 event-consumer:
   topic: events
