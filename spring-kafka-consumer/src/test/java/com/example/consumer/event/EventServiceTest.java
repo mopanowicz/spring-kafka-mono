@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +19,9 @@ public class EventServiceTest {
 
     @Test
     void saveTest() {
-        EventDocument saved = eventService.saveEvent(new Event(), LocalDateTime.now());
-        assertThat(saved.id).isNotNull();
+        Event event = new Event();
+        event.setId(UUID.randomUUID().toString());
+        Event saved = eventService.saveEvent(event);
+        assertThat(saved.getId()).isNotNull();
     }
 }

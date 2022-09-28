@@ -22,38 +22,33 @@ class EventProducerController {
 
     private final EventProducer eventProducer;
 
-    @Value("${event-producer-controller.uuidAsKey:false}")
-    boolean uuidAsKey;
+    @Value("${event-producer-controller.id-as-key:false}")
+    boolean idAsKey;
 
     @GetMapping("/produce-random-event")
     @ResponseBody
     EventProducerResult produceRandomEvent(
             @RequestParam(name = "numberOfEvents", defaultValue = "1", required = false) int numberOfEvents,
-            @RequestParam(name = "cargoSize", defaultValue = "16", required = false) int cargoSize,
-            @RequestParam(name = "cargoSLength", defaultValue = "32", required = false) int cargoSLength
-    ) throws JsonProcessingException {
+            @RequestParam(name = "cargoLength", defaultValue = "256", required = false) int cargoLength
+    ) {
         for (int i = 0; i < numberOfEvents; i++) {
-            Event event = randomEvent(cargoSize, cargoSLength);
+            Event event = randomEvent(cargoLength);
             String key = null;
-            if (uuidAsKey) {
-                key = event.getUuid();
+            if (idAsKey) {
+                key = event.getId();
             }
             eventProducer.send(key, event);
         }
-        return new EventProducerResult(numberOfEvents, cargoSize, cargoSLength);
+        return EventProducerResult.builder()
+                .numberOfEvents(numberOfEvents)
+                .cargoLength(cargoLength)
+                .build();
     }
 
-    Event randomEvent(int cargoSize, int cargoSLength) {
+    Event randomEvent(int cargoLength) {
         Event event = new Event();
-        event.setUuid(UUID.randomUUID().toString());
-        Event.Cargo[] cargo = new Event.Cargo[cargoSize];
-        event.setCargo(cargo);
-        for (int i = 0; i < cargoSize; i++) {
-            cargo[i] = new Event.Cargo();
-            cargo[i].setI((int)(cargoSize * Math.random()));
-            cargo[i].setD(cargoSize * Math.random());
-            cargo[i].setS(RandomStringUtils.randomAlphanumeric(cargoSLength));
-        }
+        event.setId(UUID.randomUUID().toString());
+        event.setCargo(RandomStringUtils.randomAlphanumeric(cargoLength));
         return event;
     }
 }

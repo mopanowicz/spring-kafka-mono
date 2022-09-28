@@ -37,12 +37,13 @@ public class EventConsumer {
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
     void receive(ConsumerRecord<String, Event> record, Acknowledgment acknowledgment) {
         log.debug("receive record={}", record);
-        LocalDateTime received = LocalDateTime.now();
+        Event event = record.value();
+        event.setReceived(System.currentTimeMillis());
         if (saveEvent) {
-            eventService.saveEvent(record.value(), received);
+            eventService.saveEvent(event);
         }
         if (sendConfirmation) {
-            eventConfirmationProducer.send(record.key(), new EventConfirmation(record.value().getUuid(), received.toInstant(ZoneOffset.UTC).toEpochMilli()));
+            eventConfirmationProducer.send(record.key(), new EventConfirmation(event));
         }
         acknowledgment.acknowledge();
     }

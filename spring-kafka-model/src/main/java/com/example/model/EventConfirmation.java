@@ -6,7 +6,6 @@ import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaString;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +15,11 @@ import org.springframework.data.mongodb.core.index.Indexed;
 })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EventConfirmation {
-    @Indexed
-    String eventUuid;
+    String eventId;
     Long eventReceived;
+
+    public EventConfirmation(Event event) {
+        this.eventId = event.getId();
+        this.eventReceived = event.getReceived();
+    }
 }

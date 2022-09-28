@@ -1,12 +1,11 @@
 package com.example.producer.event;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@Builder
 class EventProducerResult {
     int numberOfEvents;
-    int cargoSize;
-    int cargoSLength;
+    int cargoLength;
 }

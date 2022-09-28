@@ -1,6 +1,7 @@
 package com.example.consumer.event;
 
 import com.example.model.Event;
+import com.example.model.document.EventDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,10 @@ public class EventService {
     private final EventRepository eventRepository;
 
     @Transactional("transactionManager")
-    EventDocument saveEvent(Event event, LocalDateTime received) {
-        log.debug("saveEvent event={} received={}", event, received);
-        return eventRepository.save(new EventDocument(event, received != null ? received.toInstant(ZoneOffset.UTC).toEpochMilli() : null));
+    Event saveEvent(Event event) {
+        log.debug("saveEvent event={}", event);
+        event.setSaved(System.currentTimeMillis());
+        eventRepository.save(new EventDocument(event));
+        return event;
     }
 }
