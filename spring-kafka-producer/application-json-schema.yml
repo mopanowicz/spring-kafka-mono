@@ -1,4 +1,0 @@
-event-producer:
-  topic: events-json
-  properties:
-    value.serializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer

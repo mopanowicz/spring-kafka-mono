@@ -18,11 +18,33 @@ event-producer:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-producer
     key.serializer: org.apache.kafka.common.serialization.StringSerializer
-    value.serializer: io.confluent.kafka.streams.serdes.avro.ReflectionAvroSerializer
+    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+---
+spring.config.activate.on-profile: avro,json-schema
+
+event-producer:
+  properties:
     schema.registry.url: http://confluent.virtual.box:8081
     auto.register.schemas: true
-    latest.compatibility.strict: true
     use.latest.version: true
+    schema.reflection: true
+
+---
+spring.config.activate.on-profile: avro
+
+event-producer:
+  topic: events-avro
+  properties:
+    value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+---
+spring.config.activate.on-profile: json-schema
+
+event-producer:
+  topic: events-json_schema
+  properties:
+    value.serializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer
 
 ---
 spring.config.activate.on-profile: tls

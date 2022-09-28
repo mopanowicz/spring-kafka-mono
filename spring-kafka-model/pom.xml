@@ -33,12 +33,12 @@
 
 		<dependency>
 			<groupId>io.confluent</groupId>
-			<artifactId>kafka-streams-avro-serde</artifactId>
+			<artifactId>kafka-avro-serializer</artifactId>
 			<version>${confluent-platform.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.confluent</groupId>
-			<artifactId>kafka-streams-json-schema-serde</artifactId>
+			<artifactId>kafka-json-schema-serializer</artifactId>
 			<version>${confluent-platform.version}</version>
 		</dependency>
 

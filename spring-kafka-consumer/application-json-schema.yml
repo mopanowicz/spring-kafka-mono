@@ -1,9 +1,0 @@
-event-consumer:
-  topic: events-json
-  properties:
-    spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer
-
-event-confirmation-producer:
-  topic: event_confirmations-json
-  properties:
-    value.serializer: io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer
