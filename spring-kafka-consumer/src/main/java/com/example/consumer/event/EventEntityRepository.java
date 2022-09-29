@@ -1,7 +1,9 @@
 package com.example.consumer.event;
 
-import com.example.model.document.EventDocument;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.example.model.entity.EventEntity;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface EventDocumentRepository extends MongoRepository<EventDocument, String> {
+@Repository
+public interface EventEntityRepository extends CrudRepository<EventEntity, String> {
 }

@@ -2,7 +2,6 @@ package com.example.monitor.eventconfirmation;
 
 import com.example.model.Event;
 import com.example.model.EventConfirmation;
-import com.example.model.document.EventConfirmationDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

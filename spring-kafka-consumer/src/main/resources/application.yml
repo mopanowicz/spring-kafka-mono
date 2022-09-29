@@ -15,11 +15,14 @@ spring:
     mongodb:
 #      uri: mongodb://mongo.virtual.box,mongo2.virtual.box,mongo3.virtual.box/test?primaryPreferred=true&&w=1&wtimeoutMS=5000
       uri: mongodb://mongonode.virtual.box/test
+  datasource:
+    url: jdbc:postgresql://postgres.virtual.box/test
+    username: test
+    password: test123
 
 event-consumer:
   topic: events
   send-confirmation: true
-  save-event: true
   properties:
     bootstrap.servers: kafka.virtual.box:9092
     client.id: event-consumer
@@ -32,6 +35,10 @@ event-consumer:
     spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
     spring.json.value.default.type: com.example.model.Event
     spring.json.trusted.packages: com.example.model
+
+event-service:
+  save-event-document: true
+  save-event-entity: true
 
 event-confirmation-producer:
   topic: event_confirmations
@@ -93,3 +100,10 @@ server:
   ssl.key-store: ${KEYSTORE}
   ssl.key-store-type: PKCS12
   ssl.key-store-password: ${KEYSTORE_PASSWORD}
+
+---
+spring.config.activate.on-profile: jpa-create
+
+spring.jpa.properties.javax.persistence.schema-generation.scripts.action: create
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target: create.sql
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-source: metadata
