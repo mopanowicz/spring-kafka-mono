@@ -22,6 +22,8 @@ spring:
 
 event-consumer:
   topic: events
+  save-event-document: true
+  save-event-entity: true
   send-confirmation: true
   properties:
     bootstrap.servers: kafka.virtual.box:9092
@@ -35,10 +37,6 @@ event-consumer:
     spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
     spring.json.value.default.type: com.example.model.Event
     spring.json.trusted.packages: com.example.model
-
-event-service:
-  save-event-document: true
-  save-event-entity: true
 
 event-confirmation-producer:
   topic: event_confirmations

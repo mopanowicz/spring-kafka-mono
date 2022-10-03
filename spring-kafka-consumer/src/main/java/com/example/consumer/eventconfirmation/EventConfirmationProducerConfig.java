@@ -4,6 +4,7 @@ import com.example.model.EventConfirmation;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.transaction.KafkaTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Configuration
 @Setter
 @Slf4j
-@EnableTransactionManagement
 @ConfigurationProperties(prefix = "event-confirmation-producer")
 public class EventConfirmationProducerConfig {
 
@@ -34,6 +33,7 @@ public class EventConfirmationProducerConfig {
     }
 
     @Bean
+    @Qualifier("kafka")
     KafkaTransactionManager kafkaTransactionManager(ProducerFactory<String, EventConfirmation> producerFactoryTransactional) {
         return new KafkaTransactionManager<>(producerFactoryTransactional);
     }

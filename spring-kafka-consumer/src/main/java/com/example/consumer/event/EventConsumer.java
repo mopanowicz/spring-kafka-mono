@@ -21,12 +21,17 @@ public class EventConsumer {
     private final EventService eventService;
     private final EventConfirmationProducer eventConfirmationProducer;
 
+    @Value("${event-consumer.save-event-document:false}")
+    boolean saveEventDocument;
+    @Value("${event-consumer.save-event-entity:false}")
+    boolean saveEventEntity;
+
     @Value("${event-consumer.send-confirmation:false}")
     boolean sendConfirmation;
 
     @PostConstruct
     void init() {
-        log.info("init sendConfirmation={}", sendConfirmation);
+        log.info("init saveEventDocument={} saveEventEntity={} sendConfirmation={}", saveEventDocument, saveEventEntity, sendConfirmation);
     }
 
     @KafkaListener(topics = "${event-consumer.topic}", containerFactory = "eventListenerContainerFactory")
@@ -34,7 +39,12 @@ public class EventConsumer {
         log.debug("receive record={}", record);
         Event event = record.value();
         event.setReceived(System.currentTimeMillis());
-        eventService.saveEvent(event);
+        if (saveEventDocument) {
+            eventService.saveDocument(event);
+        }
+        if (saveEventEntity) {
+            eventService.saveEntity(event);
+        }
         if (sendConfirmation) {
             eventConfirmationProducer.send(record.key(), new EventConfirmation(event));
         }

@@ -1,6 +1,8 @@
 package com.example.consumer.event;
 
 import com.example.model.Event;
+import com.example.model.document.EventDocument;
+import com.example.model.entity.EventEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,10 +20,18 @@ public class EventServiceTest {
     EventService eventService;
 
     @Test
-    void saveTest() {
+    void saveDocumentTest() {
         Event event = new Event();
         event.setId(UUID.randomUUID().toString());
-        Event saved = eventService.saveEvent(event);
+        EventDocument saved = eventService.saveDocument(event);
+        assertThat(saved.getId()).isNotNull();
+    }
+
+    @Test
+    void saveEntityTest() {
+        Event event = new Event();
+        event.setId(UUID.randomUUID().toString());
+        EventEntity saved = eventService.saveEntity(event);
         assertThat(saved.getId()).isNotNull();
     }
 }

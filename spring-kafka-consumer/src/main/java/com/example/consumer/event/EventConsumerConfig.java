@@ -3,6 +3,7 @@ package com.example.consumer.event;
 import com.example.model.Event;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ class EventConsumerConfig {
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, Event> eventListenerContainerFactory(PlatformTransactionManager transactionManager) {
+    ConcurrentKafkaListenerContainerFactory<String, Event> eventListenerContainerFactory(@Qualifier("kafka") PlatformTransactionManager transactionManager) {
         ConcurrentKafkaListenerContainerFactory<String, Event> factory = new ConcurrentKafkaListenerContainerFactory<>();
         ContainerProperties containerProperties = factory.getContainerProperties();
         containerProperties.setTransactionManager(transactionManager);
