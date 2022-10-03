@@ -15,6 +15,10 @@ spring:
     mongodb:
 #      uri: mongodb://mongo.virtual.box,mongo2.virtual.box,mongo3.virtual.box/test?primaryPreferred=true&&w=majority&wtimeoutMS=5000
       uri: mongodb://mongonode.virtual.box/test
+  datasource:
+    url: jdbc:postgresql://postgres.virtual.box/test
+    username: test
+    password: test123
 
 event-consumer:
   topic: events
